@@ -30,7 +30,7 @@ def push():
 		except Exception as e:
 			# Log to Frappe error log
 			frappe.log_error(e)
-			response.data = {"error": str(e)}
+			response.data = {"body": str(e)}
 			
 		return response
 
