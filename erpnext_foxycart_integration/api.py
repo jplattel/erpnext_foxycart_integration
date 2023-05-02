@@ -28,7 +28,7 @@ def push():
 			response.data = {"status": "ok"}
 		except Exception as e:
 			# Log to Frappe error log
-			frappe.error_log(str(e))
+			frappe.log_error(e)
 			response.data = {"error": str(e)}
 			
 		return response
