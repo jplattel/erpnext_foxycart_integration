@@ -127,6 +127,7 @@ def make_sales_order(customer, address, foxycart_data, foxycart_settings):
 			sales_items.append(sales_order_item)
 
 	sales_order.taxes = []
+	sales_order.price_list = "Standard Selling"
 	sales_order.items = sales_items
 	sales_order.total_qty = 1
 	sales_order.customer_address = address
