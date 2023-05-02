@@ -135,7 +135,7 @@ def make_sales_order(customer, address, foxycart_data, foxycart_settings):
 	sales_order.po_no = foxycart_data.get("id", "")
 	
 	sales_order.flags.ignore_permissions = True
-	sales_order.flags.ignore_mandatory = True
+	# sales_order.flags.ignore_mandatory = True
 	sales_order.save()
 	
 	frappe.db.commit()
