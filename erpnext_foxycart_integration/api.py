@@ -12,9 +12,9 @@ from frappe.utils import cint
 
 @frappe.whitelist(allow_guest=True)
 def push():
-	
 
 	# Get API key and validate the signature of the request
+	api_key = frappe.get_single("Foxycart Settings").get_password("api_key")
 	signature = hmac.new(api_key.encode("utf-8"), frappe.request.data, hashlib.sha256).hexdigest()
 
 	# If the signature matches, we can assume it's a payload from Foxy.io
