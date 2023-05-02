@@ -112,9 +112,10 @@ def make_sales_order(customer, address, foxycart_data, foxycart_settings):
 			print(f"Product: {product_name} not found")
 
 		else:
+			erpnext_item = frappe.get_all("Item", filters={"item_name": product_name})[0]
 			sales_items.append({
-				"item_code": product_name,
-				"item_name": product_name,
+				"item_code": erpnext_item.code,
+				"item_name": erpnext_item.product_name,
 				"qty": item.get("quantity"),
 				"uom": foxycart_settings.uom or "Nos",
 				"delivery_date": date.today().isoformat(),
