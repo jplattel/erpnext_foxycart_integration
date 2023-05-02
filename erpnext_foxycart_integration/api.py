@@ -7,7 +7,7 @@ from datetime import date
 from .foxyutils import decrypt_data
 from werkzeug.wrappers import Response
 from frappe.utils import nowdate
-
+from frappe.utils.data import flt
 from erpnext.selling.doctype.sales_order.sales_order import make_sales_invoice
 from erpnext.accounts.doctype.payment_entry.payment_entry import get_payment_entry
 from frappe.utils import cint
@@ -118,7 +118,7 @@ def make_sales_order(customer, address, foxycart_data, foxycart_settings):
 			sales_order_item = frappe.new_doc("Sales Order Item")
 			sales_order_item.item_code = erpnext_item.code
 			sales_order_item.item_name = erpnext_item.product_name
-			sales_order_item.qty = float(item.get("quantity"))
+			sales_order_item.qty = flt(item.get("quantity"))
 			sales_order_item.delivery_date = nowdate()
 			sales_order_item.description = erpnext_item.description
 			sales_order_item.conversion_factor = foxycart_settings.conversion_factor or 1,
