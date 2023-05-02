@@ -28,7 +28,7 @@ def push():
 			response.data = {"status": "ok"}
 		except Exception as e:
 			# Log to Frappe error log
-			frappe.error_log(frappe.get_traceback(), str(e))
+			frappe.error_log(str(e))
 			response.data = {"error": str(e)}
 			
 		return response
@@ -147,8 +147,6 @@ def make_sales_order(customer, address, foxycart_data, foxycart_settings):
 	sales_order.status = "Draft"
 	sales_order.flags.ignore_permissions = True
 	sales_order.save()
-	sales_order.submit()
-
 	frappe.db.commit()
 
 	return sales_order.name
