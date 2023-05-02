@@ -28,7 +28,7 @@ def push():
 		except Exception as e:
 			# Log to Frappe error log
 			frappe.log_error(e)
-			return Response("Error: {e}")
+			return Response(f"Error: {e}")
 			
 	# Otherwise, treat the incoming request as invalid
 	else:
