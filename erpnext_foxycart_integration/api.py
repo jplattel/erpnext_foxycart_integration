@@ -6,6 +6,7 @@ from datetime import date
 
 from .foxyutils import decrypt_data
 from werkzeug.wrappers import Response
+from frappe.utils import nowdate
 
 from erpnext.selling.doctype.sales_order.sales_order import make_sales_invoice
 from erpnext.accounts.doctype.payment_entry.payment_entry import get_payment_entry
@@ -118,6 +119,7 @@ def make_sales_order(customer, address, foxycart_data, foxycart_settings):
 			sales_order_item.item_code = erpnext_item.code
 			sales_order_item.item_name = erpnext_item.product_name
 			sales_order_item.qty = float(item.get("quantity"))
+			sales_order_item.delivery_date = nowdate()
 			sales_order_item.description = erpnext_item.description
 			sales_order_item.conversion_factor = foxycart_settings.conversion_factor or 1,
 			sales_order_item.rate = item.get("price")
@@ -138,7 +140,7 @@ def make_sales_order(customer, address, foxycart_data, foxycart_settings):
 	sales_order.po_no = foxycart_data.get("id", "")
 	
 	sales_order.flags.ignore_permissions = True
-	# sales_order.flags.ignore_mandatory = True
+	sales_order.flags.ignore_mandatory = True
 	sales_order.save()
 	
 	frappe.db.commit()
