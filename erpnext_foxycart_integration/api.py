@@ -123,11 +123,11 @@ def make_sales_order(customer, address, foxycart_data, foxycart_settings):
 			sales_order_item.description = erpnext_item.description
 			sales_order_item.conversion_factor = foxycart_settings.conversion_factor or 1,
 			sales_order_item.rate = item.get("price")
-			
+
 			sales_items.append(sales_order_item)
 
 	sales_order.items = sales_items
-	
+	sales_order.total_qty = 1
 	sales_order.customer_address = address
 	sales_order.shipping_address_name = address
 
