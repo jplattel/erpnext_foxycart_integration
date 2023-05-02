@@ -113,15 +113,16 @@ def make_sales_order(customer, address, foxycart_data, foxycart_settings):
 
 		else:
 			erpnext_item = frappe.get_all("Item", filters={"item_name": product_name})[0]
-			sales_items.append({
-				"item_code": erpnext_item.code,
-				"item_name": erpnext_item.product_name,
-				"qty": item.get("quantity"),
-				"uom": foxycart_settings.uom or "Nos",
-				"delivery_date": date.today().isoformat(),
-				"conversion_factor": foxycart_settings.conversion_factor or 1,
-				"rate": item.get("price")
-			})
+			
+			sales_order_item = frappe.new_doc("SalesOrderItem")
+			sales_order_item.item_code = erpnext_item.code
+			sales_order_item.item_name = erpnext_item.product_name
+			sales_order_item.qty = item.get("quantity")
+			sales_order_item.description = erpnext_item.description
+			sales_order_item.conversion_factor = foxycart_settings.conversion_factor or 1,
+			sales_order_item.rate = item.get("price")
+			
+			sales_items.append(sales_order_item)
 
 	sales_order.items = sales_items
 	# sales_order.set("sales_order_details", sales_items)
