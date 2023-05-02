@@ -15,7 +15,6 @@ def push():
 	
 
 	# Get API key and validate the signature of the request
-	api_key = frappe.get_single("Foxycart Settings").get_password("api_key")
 	signature = hmac.new(api_key.encode("utf-8"), frappe.request.data, hashlib.sha256).hexdigest()
 
 	# If the signature matches, we can assume it's a payload from Foxy.io
@@ -179,7 +178,7 @@ def make_address(customer, foxycart_data):
 
 		country = frappe.get_all("Country", filters={"code": country_code})[0]
 		
-		territory = frappe.get_all("Territory", filters={"id": country_code.strip().lower()})
+		territory = frappe.get_all("Territory", filters={"id": country_code})
 		if territory:
 			territory_name = territory[0].name
 		else:
