@@ -113,8 +113,8 @@ def make_sales_order(customer, address, foxycart_data, foxycart_settings):
 
 		else:
 			erpnext_item = frappe.get_all("Item", filters={"item_name": product_name})[0]
-			
-			sales_order_item = frappe.new_doc("SalesOrderItem")
+
+			sales_order_item = frappe.new_doc("Sales Order Item")
 			sales_order_item.item_code = erpnext_item.code
 			sales_order_item.item_name = erpnext_item.product_name
 			sales_order_item.qty = item.get("quantity")
