@@ -143,6 +143,8 @@ def make_sales_order(customer, address, foxycart_data, foxycart_settings):
 	# 	})
 	# sales_order.set("taxes", taxes)
 
+	sales_order.grand_total = 0
+	sales_order.rounded_total = 0
 	sales_order.base_grand_total = 0
 	sales_order.base_rounded_total = 0
 
