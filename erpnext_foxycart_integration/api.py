@@ -2,7 +2,7 @@ import frappe
 import json
 import hashlib
 import hmac
-from datetime import datetime
+from datetime import date
 
 from .foxyutils import decrypt_data
 from werkzeug.wrappers import Response
@@ -117,7 +117,7 @@ def make_sales_order(customer, address, foxycart_data, foxycart_settings):
 				"item_name": product_name,
 				"qty": item.get("quantity"),
 				"uom": foxycart_settings.uom or "Nos",
-				# "delivery_date": datetime.now().isoformat(),
+				"delivery_date": date.today().isoformat(),
 				"conversion_factor": foxycart_settings.conversion_factor or 1,
 				"rate": item.get("price")
 			})
