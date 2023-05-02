@@ -146,7 +146,9 @@ def make_sales_order(customer, address, foxycart_data, foxycart_settings):
 	# sales_order.base_grand_total = 0
 
 	import pprint from pprint
-	pprint(sales_order)
+
+	pp = pprint.PrettyPrinter(indent=4)
+	pp.pprint(sales_order)
 
 	sales_order.customer_address = address
 	sales_order.shipping_address_name = address
