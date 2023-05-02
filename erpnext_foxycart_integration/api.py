@@ -20,20 +20,16 @@ def push():
 
 	# If the signature matches, we can assume it's a payload from Foxy.io
 	if signature == frappe.request.headers.get("Foxy-Webhook-Signature") and frappe.request.method == "POST":
-		response = Response()
-
 		# Try creating a sales order and connected models with the payload
 		try:
 			fd = json.loads(frappe.request.data)
 			process_new_order(fd)
-			response.data = {"status": "ok"}
+			return Response("done")
 		except Exception as e:
 			# Log to Frappe error log
 			frappe.log_error(e)
-			response.data = {"body": str(e)}
+			return Response("Error: {e}")
 			
-		return response
-
 	# Otherwise, treat the incoming request as invalid
 	else:
 		print("Invalid request")
@@ -154,6 +150,7 @@ def make_sales_order(customer, address, foxycart_data, foxycart_settings):
 	sales_order.shipping_address_name = address
 	
 	sales_order.flags.ignore_permissions = True
+	sales_order.flags.ignore_mandatory = True
 	sales_order.save()
 	
 	frappe.db.commit()
