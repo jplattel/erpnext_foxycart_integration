@@ -122,7 +122,8 @@ def make_sales_order(customer, address, foxycart_data, foxycart_settings):
 				"rate": item.get("price")
 			})
 
-	sales_order.set("sales_order_details", sales_items)
+	sales_order.items = sales_items
+	# sales_order.set("sales_order_details", sales_items)
 	
 	sales_order.grand_total = 0
 	sales_order.rounded_total = 0
