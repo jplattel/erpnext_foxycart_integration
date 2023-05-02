@@ -117,7 +117,7 @@ def make_sales_order(customer, address, foxycart_data, foxycart_settings):
 				"item_name": product_name,
 				"qty": item.get("quantity"),
 				"uom": foxycart_settings.uom or "Nos",
-				"delivery_date": datetime.now().isoformat(),
+				# "delivery_date": datetime.now().isoformat(),
 				"conversion_factor": foxycart_settings.conversion_factor or 1,
 				"rate": item.get("price")
 			})
@@ -156,7 +156,6 @@ def find_address(customer, foxycart_data):
 		return address[0].name
 
 def make_address(customer, foxycart_data):
-	print(foxycart_data)
 	address = frappe.new_doc("Address")
 
 	billing_data = foxycart_data.get('_embedded').get("fx:billing_addresses")[0]
@@ -174,7 +173,7 @@ def make_address(customer, foxycart_data):
 			territory_name = "All Territories"
 
 		address.update({
-			"address_title": '%s %s' % (foxycart_data.get("first_name"), foxycart_data.get("last_name")),
+			"address_title": '%s %s' % (billing_data.get("first_name"), billing_data.get("last_name")),
 			"address_line1": billing_data.get("address1"),
 			"address_line2": billing_data.get("address2"),
 			"address_type": "Shipping",
