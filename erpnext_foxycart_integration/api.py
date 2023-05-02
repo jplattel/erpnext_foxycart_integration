@@ -125,24 +125,24 @@ def make_sales_order(customer, address, foxycart_data, foxycart_settings):
 
 	sales_order.set("sales_order_details", sales_items)
 	
-	# taxes = []
-	# if cint(foxycart_data.get("shipping_total")) or foxycart_data.get("shipto_shipping_service_description"):
-	# 	taxes.append({
-	# 		"charge_type": "Actual",
-	# 		"account_head": foxycart_settings.shipping_account_head,
-	# 		"description": foxycart_data.get("shipto_shipping_service_description", "Shipping Charges"),
-	# 		"tax_amount": cint(foxycart_data.get("shipping_total"))
-	# 	})
+	taxes = []
+	if cint(foxycart_data.get("shipping_total")) or foxycart_data.get("shipto_shipping_service_description"):
+		taxes.append({
+			"charge_type": "Actual",
+			"account_head": foxycart_settings.shipping_account_head,
+			"description": foxycart_data.get("shipto_shipping_service_description", "Shipping Charges"),
+			"tax_amount": cint(foxycart_data.get("shipping_total"))
+		})
 
-	# if cint(foxycart_data.get("tax_total")) > 0:
-	# 	taxes.append({
-	# 		"charge_type": "Actual",
-	# 		"account_head": foxycart_settings.tax_account_head,
-	# 		"description": "Tax",
-	# 		"tax_amount": cint(foxycart_data.get("tax_total"))
-	# 	})
-	# sales_order.set("taxes", [])
-	print(sales_order)
+	if cint(foxycart_data.get("tax_total")) > 0:
+		taxes.append({
+			"charge_type": "Actual",
+			"account_head": foxycart_settings.tax_account_head,
+			"description": "Tax",
+			"tax_amount": cint(foxycart_data.get("tax_total"))
+		})
+	sales_order.set("taxes", taxes)
+
 	sales_order.customer_address = address
 	sales_order.shipping_address_name = address
 	
